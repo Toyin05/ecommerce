@@ -32,23 +32,23 @@ export function CategorySection({ title, subtitle, categories, type = "occasion"
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl mb-3">{title}</h2>
-          {subtitle && <p className="text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>}
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3">{title}</h2>
+          {subtitle && <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">{subtitle}</p>}
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Link
                 key={index}
                 to={getCategoryLink(category.name)}
-                className="group relative overflow-hidden rounded-2xl bg-accent hover:bg-accent/80 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
+                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-accent hover:bg-accent/80 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 block"
               >
                 <div className="aspect-square relative">
                   <ImageWithFallback
@@ -59,11 +59,11 @@ export function CategorySection({ title, subtitle, categories, type = "occasion"
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   
                   {/* Content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-white">
-                    <Icon className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-center mb-1">{category.name}</h3>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 text-white">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 mb-1 sm:mb-2 group-hover:scale-110 transition-transform" />
+                    <h3 className="text-center text-xs sm:text-sm md:text-base mb-1">{category.name}</h3>
                     {category.description && (
-                      <p className="text-xs text-white/80 text-center">{category.description}</p>
+                      <p className="text-[10px] xs:text-xs text-white/80 text-center leading-tight">{category.description}</p>
                     )}
                   </div>
                 </div>
@@ -77,3 +77,4 @@ export function CategorySection({ title, subtitle, categories, type = "occasion"
     </section>
   );
 }
+

@@ -67,15 +67,15 @@ export function LoginPage() {
       </div>
 
       {/* Right Panel - Auth Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-gradient-to-br from-accent/30 to-white">
-        <div className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-accent/30 to-white">
+        <div className="w-full max-w-sm sm:max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
-              <Gift className="h-7 w-7 text-white" />
+          <div className="lg:hidden flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
+              <Gift className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">Gifted & Co.</h1>
+              <h1 className="text-xl sm:text-2xl font-bold">Gifted & Co.</h1>
               <p className="text-xs text-muted-foreground">Gift easy. Gift smart.</p>
             </div>
           </div>
@@ -83,19 +83,19 @@ export function LoginPage() {
           {/* Glassmorphism Card */}
           <div className="relative">
             {/* Glass effect background */}
-            <div className="absolute inset-0 bg-white/60 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50" />
+            <div className="absolute inset-0 bg-white/60 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl border border-white/50" />
             
-            <div className="relative z-10 p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-semibold mb-2">Welcome back</h2>
-                <p className="text-muted-foreground text-sm">
+            <div className="relative z-10 p-6 sm:p-8">
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-2">Welcome back</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   Sign in to your account to continue shopping
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="email" className="text-sm">Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -103,16 +103,16 @@ export function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="rounded-xl bg-white/80"
+                    className="rounded-xl bg-white/80 h-10"
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1 sm:space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-sm">Password</Label>
                     <Link
                       to="/auth/forgot-password"
-                      className="text-sm text-primary hover:underline"
+                      className="text-xs sm:text-sm text-primary hover:underline"
                     >
                       Forgot password?
                     </Link>
@@ -125,7 +125,7 @@ export function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="rounded-xl bg-white/80 pr-10"
+                      className="rounded-xl bg-white/80 pr-10 h-10"
                     />
                     <button
                       type="button"
@@ -139,7 +139,7 @@ export function LoginPage() {
 
                 <Button
                   type="submit"
-                  className="w-full rounded-xl h-11 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                  className="w-full rounded-xl h-11 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-sm sm:text-base"
                   disabled={isSubmitting || loading}
                 >
                   {isSubmitting ? (
@@ -153,16 +153,16 @@ export function LoginPage() {
                 </Button>
               </form>
 
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 <div className="relative">
                   <Separator />
-                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/80 px-3 text-xs text-muted-foreground">
+                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/80 px-2 sm:px-3 text-xs text-muted-foreground">
                     OR
                   </span>
                 </div>
               </div>
 
-              <p className="mt-6 text-center text-sm text-muted-foreground">
+              <p className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-muted-foreground">
                 Don't have an account?{' '}
                 <Link
                   to="/auth/signup"
@@ -176,10 +176,10 @@ export function LoginPage() {
           </div>
 
           {/* Continue Shopping Link */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <Link
               to="/"
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               ← Continue shopping as guest
             </Link>

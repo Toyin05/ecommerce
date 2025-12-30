@@ -17,7 +17,7 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { allProducts } from "../data/products";
 import { Search, SlidersHorizontal, X, ArrowLeft, Sparkles } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 export function ProductListPage() {
   const { category } = useParams<{ category?: string }>();
@@ -249,14 +249,14 @@ export function ProductListPage() {
       <Header />
 
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 py-12">
+      <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 py-6 sm:py-8 lg:py-12">
         <div className="container mx-auto px-4">
           {/* Back Button and Restart Button */}
-          <div className="mb-4 flex items-center justify-between flex-wrap gap-3">
+          <div className="mb-3 sm:mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <Button
               variant="ghost"
               onClick={() => navigate(-1)}
-              className="gap-2 hover:bg-primary/10"
+              className="gap-2 hover:bg-primary/10 h-10 text-sm self-start"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
@@ -266,7 +266,7 @@ export function ProductListPage() {
               <Button
                 variant="outline"
                 onClick={() => navigate("/?openGiftFinder=true")}
-                className="gap-2 rounded-full border-2 border-secondary text-secondary hover:bg-secondary hover:text-white fixed bottom-6 right-6 z-50 shadow-lg hover:shadow-xl transition-shadow"
+                className="gap-2 rounded-full border-2 border-secondary text-secondary hover:bg-secondary hover:text-white w-full sm:w-auto sm:fixed sm:bottom-6 sm:right-6 sm:z-50 shadow-lg hover:shadow-xl transition-shadow h-10"
               >
                 <Sparkles className="h-4 w-4" />
                 Restart Shopping Assistant
@@ -275,10 +275,10 @@ export function ProductListPage() {
           </div>
           
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl mb-3">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2 sm:mb-3">
               {fromGiftFinder ? "Perfect Gifts For You 🎁" : `${pageTitle} 🎁`}
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               {fromGiftFinder 
                 ? `Based on your preferences, here are gifts ${relationshipParam ? `for your ${relationshipParam}` : ""} ${ageGroupParam ? `(${ageGroupParam})` : ""}`
                 : "Explore our best-selling gifts — find something perfect for every occasion!"
@@ -290,16 +290,16 @@ export function ProductListPage() {
 
       {/* Quick Filters */}
       <div className="border-b bg-white sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className="text-sm text-muted-foreground mr-2">Quick Filters:</span>
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex gap-1 sm:gap-2 flex-wrap items-center">
+            <span className="text-xs sm:text-sm text-muted-foreground mr-2">Quick Filters:</span>
             {quickFilters.map((filter, index) => (
               <Button
                 key={index}
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickFilter(filter)}
-                className="rounded-full"
+                className="rounded-full h-8 text-xs sm:text-sm"
               >
                 {filter.label}
               </Button>
@@ -309,9 +309,9 @@ export function ProductListPage() {
                 variant="ghost"
                 size="sm"
                 onClick={clearAllFilters}
-                className="rounded-full text-primary ml-auto"
+                className="rounded-full text-primary ml-auto h-8 text-xs sm:text-sm"
               >
-                <X className="h-4 w-4 mr-1" />
+                <X className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                 Clear All ({activeFiltersCount})
               </Button>
             )}
@@ -319,11 +319,11 @@ export function ProductListPage() {
         </div>
       </div>
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+      <main className="flex-1 container mx-auto px-4 py-4 sm:py-6 lg:py-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Desktop Filter Sidebar */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-32">
+            <div className="sticky top-24 lg:top-32">
               <FilterSidebar
                 priceRange={priceRange}
                 onPriceChange={setPriceRange}
@@ -342,84 +342,86 @@ export function ProductListPage() {
           </aside>
 
           {/* Main Content */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {/* Search and Sort Bar */}
-            <div className="mb-6 flex flex-col sm:flex-row gap-4">
+            <div className="mb-4 sm:mb-6 flex flex-col gap-3 sm:gap-4">
               {/* Search */}
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
                 <Input
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 rounded-full"
+                  className="pl-10 sm:pl-12 rounded-full h-10"
                 />
               </div>
 
-              {/* Mobile Filter Button */}
-              <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="lg:hidden rounded-full"
-                  >
-                    <SlidersHorizontal className="h-4 w-4 mr-2" />
-                    Filters
-                    {activeFiltersCount > 0 && (
-                      <Badge className="ml-2">{activeFiltersCount}</Badge>
-                    )}
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-80 overflow-y-auto">
-                  <div className="mt-6">
-                    <FilterSidebar
-                      priceRange={priceRange}
-                      onPriceChange={setPriceRange}
-                      selectedCategories={selectedCategories}
-                      onCategoryChange={handleCategoryToggle}
-                      selectedOccasions={selectedOccasions}
-                      onOccasionChange={handleOccasionToggle}
-                      selectedRatings={selectedRatings}
-                      onRatingChange={handleRatingToggle}
-                      selectedAvailability={selectedAvailability}
-                      onAvailabilityChange={handleAvailabilityToggle}
-                      selectedDeliveryTime={selectedDeliveryTime}
-                      onDeliveryTimeChange={handleDeliveryTimeToggle}
-                    />
-                  </div>
-                </SheetContent>
-              </Sheet>
+              <div className="flex flex-col xs:flex-row gap-3">
+                {/* Mobile Filter Button */}
+                <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+                  <SheetTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="lg:hidden rounded-full h-10 flex-1 xs:flex-none xs:w-auto"
+                    >
+                      <SlidersHorizontal className="h-4 w-4 mr-2" />
+                      Filters
+                      {activeFiltersCount > 0 && (
+                        <Badge className="ml-2">{activeFiltersCount}</Badge>
+                      )}
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-80 overflow-y-auto">
+                    <div className="mt-6">
+                      <FilterSidebar
+                        priceRange={priceRange}
+                        onPriceChange={setPriceRange}
+                        selectedCategories={selectedCategories}
+                        onCategoryChange={handleCategoryToggle}
+                        selectedOccasions={selectedOccasions}
+                        onOccasionChange={handleOccasionToggle}
+                        selectedRatings={selectedRatings}
+                        onRatingChange={handleRatingToggle}
+                        selectedAvailability={selectedAvailability}
+                        onAvailabilityChange={handleAvailabilityToggle}
+                        selectedDeliveryTime={selectedDeliveryTime}
+                        onDeliveryTimeChange={handleDeliveryTimeToggle}
+                      />
+                    </div>
+                  </SheetContent>
+                </Sheet>
 
-              {/* Sort Dropdown */}
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full sm:w-[200px] rounded-full">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="popularity">Popularity</SelectItem>
-                  <SelectItem value="price-low">Price: Low to High</SelectItem>
-                  <SelectItem value="price-high">Price: High to Low</SelectItem>
-                  <SelectItem value="newest">Newest</SelectItem>
-                </SelectContent>
-              </Select>
+                {/* Sort Dropdown */}
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-full xs:w-[200px] rounded-full h-10">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="popularity">Popularity</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="newest">Newest</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             {/* Results Count */}
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
               Showing {filteredProducts.length} product
               {filteredProducts.length !== 1 ? "s" : ""}
             </p>
 
             {/* Product Grid */}
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {filteredProducts.map((product) => (
                   <Link
                     key={product.id}
                     to={`/product/${product.id}`}
                     className="group"
                   >
-                    <div className="rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div className="relative aspect-square overflow-hidden bg-accent">
                         <ImageWithFallback
                           src={product.image}
@@ -427,32 +429,32 @@ export function ProductListPage() {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         {product.badge && (
-                          <Badge className="absolute top-3 right-3 bg-primary text-white">
+                          <Badge className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-primary text-white text-xs">
                             {product.badge}
                           </Badge>
                         )}
                       </div>
-                      <div className="p-4">
+                      <div className="p-3 sm:p-4">
                         {product.tag && (
-                          <Badge variant="outline" className="mb-2">
+                          <Badge variant="outline" className="mb-2 text-xs">
                             {product.tag}
                           </Badge>
                         )}
-                        <h3 className="mb-2 line-clamp-2">
+                        <h3 className="mb-2 line-clamp-2 text-sm sm:text-base">
                           {product.title}
                         </h3>
                         <div className="flex items-baseline gap-2 mb-3">
-                          <span className="text-primary">
+                          <span className="text-primary text-sm sm:text-base">
                             {product.price}
                           </span>
                           {product.originalPrice && (
-                            <span className="text-sm text-muted-foreground line-through">
+                            <span className="text-xs sm:text-sm text-muted-foreground line-through">
                               {product.originalPrice}
                             </span>
                           )}
                         </div>
                         <Button
-                          className="w-full rounded-full"
+                          className="w-full rounded-full h-9 text-xs sm:text-sm"
                           onClick={(e) => {
                             e.preventDefault();
                             toast.success(`${product.title} added to cart!`);
@@ -466,12 +468,12 @@ export function ProductListPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16">
-                <h3 className="text-xl mb-2">No products found</h3>
-                <p className="text-muted-foreground mb-6">
+              <div className="text-center py-8 sm:py-16">
+                <h3 className="text-lg sm:text-xl mb-2">No products found</h3>
+                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
                   Try adjusting your filters or search query
                 </p>
-                <Button onClick={clearAllFilters} className="rounded-full">
+                <Button onClick={clearAllFilters} className="rounded-full h-10">
                   Clear All Filters
                 </Button>
               </div>

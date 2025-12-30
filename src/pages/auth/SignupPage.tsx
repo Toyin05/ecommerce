@@ -92,15 +92,15 @@ export function SignupPage() {
       </div>
 
       {/* Right Panel - Auth Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-gradient-to-br from-secondary/10 to-white">
-        <div className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-secondary/10 to-white">
+        <div className="w-full max-w-sm sm:max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
-              <Gift className="h-7 w-7 text-white" />
+          <div className="lg:hidden flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
+              <Gift className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">Gifted & Co.</h1>
+              <h1 className="text-xl sm:text-2xl font-bold">Gifted & Co.</h1>
               <p className="text-xs text-muted-foreground">Gift easy. Gift smart.</p>
             </div>
           </div>
@@ -108,31 +108,31 @@ export function SignupPage() {
           {/* Glassmorphism Card */}
           <div className="relative">
             {/* Glass effect background */}
-            <div className="absolute inset-0 bg-white/60 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50" />
+            <div className="absolute inset-0 bg-white/60 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl border border-white/50" />
             
-            <div className="relative z-10 p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-semibold mb-2">Create your account</h2>
-                <p className="text-muted-foreground text-sm">
+            <div className="relative z-10 p-6 sm:p-8">
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-2">Create your account</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   Join Gifted & Co. and start gifting today
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name (optional)</Label>
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="fullName" className="text-sm">Full Name (optional)</Label>
                   <Input
                     id="fullName"
                     type="text"
                     placeholder="John Doe"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="rounded-xl bg-white/80"
+                    className="rounded-xl bg-white/80 h-10"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="email" className="text-sm">Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -140,12 +140,12 @@ export function SignupPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="rounded-xl bg-white/80"
+                    className="rounded-xl bg-white/80 h-10"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="password" className="text-sm">Password</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -154,7 +154,7 @@ export function SignupPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="rounded-xl bg-white/80 pr-10"
+                      className="rounded-xl bg-white/80 pr-10 h-10"
                     />
                     <button
                       type="button"
@@ -166,29 +166,29 @@ export function SignupPage() {
                   </div>
                   
                   {/* Password Requirements */}
-                  <div className="space-y-1 pt-2">
+                  <div className="space-y-1 pt-1 sm:pt-2">
                     {passwordRequirements.map((req, index) => (
                       <div
                         key={index}
-                        className={`flex items-center gap-2 text-xs transition-colors ${
+                        className={`flex items-center gap-1 sm:gap-2 text-xs transition-colors ${
                           password && req.check(password)
                             ? 'text-green-600'
                             : 'text-muted-foreground'
                         }`}
                       >
                         {password && req.check(password) ? (
-                          <CheckCircle2 className="h-3 w-3" />
+                          <CheckCircle2 className="h-3 w-3 flex-shrink-0" />
                         ) : (
-                          <Circle className="h-3 w-3" />
+                          <Circle className="h-3 w-3 flex-shrink-0" />
                         )}
-                        {req.label}
+                        <span className="text-xs">{req.label}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <div className="space-y-1 sm:space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-sm">Confirm Password</Label>
                   <div className="relative">
                     <Input
                       id="confirmPassword"
@@ -197,7 +197,7 @@ export function SignupPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
-                      className={`rounded-xl bg-white/80 pr-10 ${
+                      className={`rounded-xl bg-white/80 pr-10 h-10 ${
                         confirmPassword && !doPasswordsMatch ? 'border-red-500' : ''
                       }`}
                     />
@@ -218,7 +218,7 @@ export function SignupPage() {
 
                 <Button
                   type="submit"
-                  className="w-full rounded-xl h-11 bg-gradient-to-r from-primary to-secondary hover:opacity-90 mt-2"
+                  className="w-full rounded-xl h-11 bg-gradient-to-r from-primary to-secondary hover:opacity-90 mt-2 text-sm sm:text-base"
                   disabled={isSubmitting || authLoading || (confirmPassword && !doPasswordsMatch)}
                 >
                   {isSubmitting ? (
@@ -232,7 +232,7 @@ export function SignupPage() {
                 </Button>
               </form>
 
-              <p className="mt-6 text-center text-sm text-muted-foreground">
+              <p className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-muted-foreground">
                 Already have an account?{' '}
                 <Link
                   to="/auth/login"
@@ -246,10 +246,10 @@ export function SignupPage() {
           </div>
 
           {/* Continue Shopping Link */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <Link
               to="/"
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               ← Continue shopping as guest
             </Link>
@@ -259,4 +259,3 @@ export function SignupPage() {
     </div>
   );
 }
-

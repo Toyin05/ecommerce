@@ -50,6 +50,8 @@ export interface PaymentVerificationResponse {
 }
 
 // Generate a unique reference for payment
+// DEPRECATED: Paystack now generates its own references
+// This function is kept for backwards compatibility but should not be used
 export function generatePaymentReference(): string {
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 1000);
@@ -107,7 +109,7 @@ export function loadPaystackScript(): Promise<void> {
 
 // Initialize Paystack payment popup
 export function initializePaystackPayment(
-  config: Omit<PaystackConfig, 'key'>,
+  config: Omit<PaystackConfig, 'key' | 'reference'>,
   onSuccess: (reference: string) => void,
   onError: (error: string) => void,
   onClose: () => void
@@ -133,17 +135,24 @@ export function initializePaystackPayment(
       }
 
       // Set up callback functions
+      // Note: We don't pass a custom reference to Paystack
+      // Paystack will generate its own reference and return it in the callback
       const paystackConfig: PaystackConfig = {
         ...config,
         key: publicKey,
+        // Remove any custom reference to let Paystack generate its own
         callback: (response: PaystackCallback) => {
+          console.log('[Paystack] Payment callback received:', response);
           if (response.status === 'success') {
+            console.log('[Paystack] Payment successful, reference:', response.reference);
             onSuccess(response.reference);
           } else {
+            console.log('[Paystack] Payment failed:', response.message);
             onError(response.message || 'Payment failed');
           }
         },
         onClose: () => {
+          console.log('[Paystack] Payment popup closed');
           onClose();
         },
       };

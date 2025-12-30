@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
@@ -28,7 +28,7 @@ export function GiftFinder() {
     ageGroup: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     
     // Build URL parameters based on form data
@@ -64,60 +64,60 @@ export function GiftFinder() {
   };
 
   return (
-    <div className="bg-secondary py-6">
+    <div className="bg-secondary py-4 sm:py-6">
       <div className="container mx-auto px-4">
         <Dialog open={open} onOpenChange={setOpen}>
-          <div className="flex items-center justify-center gap-3 text-white flex-wrap">
-            <Gift className="h-6 w-6" />
-            <span className="text-lg">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 text-white flex-wrap text-center">
+            <Gift className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+            <span className="text-sm sm:text-base lg:text-lg leading-tight">
               Not sure what to get? 🎁 Let's help you find the perfect gift — tell us about the receiver!
             </span>
             <DialogTrigger asChild>
-              <Button variant="secondary" className="bg-white text-secondary hover:bg-white/90 rounded-full">
+              <Button variant="secondary" className="bg-white text-secondary hover:bg-white/90 rounded-full w-full sm:w-auto mt-2 sm:mt-0 h-10 text-sm sm:text-base">
                 Get Started with Shopping Assistant
               </Button>
             </DialogTrigger>
           </div>
           
-          <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader>
-              <DialogTitle className="text-2xl">Find Your Perfect Gift 🎁</DialogTitle>
-              <DialogDescription>
+          <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+            <DialogHeader className="pb-4">
+              <DialogTitle className="text-xl sm:text-2xl">Find Your Perfect Gift 🎁</DialogTitle>
+              <DialogDescription className="text-sm sm:text-base">
                 Answer a few quick questions and we'll suggest the best gifts for your special someone!
               </DialogDescription>
             </DialogHeader>
             
-            <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 mt-4">
               {/* Recipient Gender */}
               <div className="space-y-3">
-                <Label>Who's the gift for?</Label>
+                <Label className="text-sm sm:text-base">Who's the gift for?</Label>
                 <RadioGroup
                   value={formData.recipient}
                   onValueChange={(value) => setFormData({ ...formData, recipient: value })}
                 >
-                  <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-accent cursor-pointer">
+                  <div className="flex items-center space-x-2 p-2 sm:p-3 rounded-lg border hover:bg-accent cursor-pointer">
                     <RadioGroupItem value="male" id="male" />
-                    <Label htmlFor="male" className="cursor-pointer flex-1">For Him</Label>
+                    <Label htmlFor="male" className="cursor-pointer flex-1 text-sm sm:text-base">For Him</Label>
                   </div>
-                  <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-accent cursor-pointer">
+                  <div className="flex items-center space-x-2 p-2 sm:p-3 rounded-lg border hover:bg-accent cursor-pointer">
                     <RadioGroupItem value="female" id="female" />
-                    <Label htmlFor="female" className="cursor-pointer flex-1">For Her</Label>
+                    <Label htmlFor="female" className="cursor-pointer flex-1 text-sm sm:text-base">For Her</Label>
                   </div>
-                  <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-accent cursor-pointer">
+                  <div className="flex items-center space-x-2 p-2 sm:p-3 rounded-lg border hover:bg-accent cursor-pointer">
                     <RadioGroupItem value="other" id="other" />
-                    <Label htmlFor="other" className="cursor-pointer flex-1">Anyone</Label>
+                    <Label htmlFor="other" className="cursor-pointer flex-1 text-sm sm:text-base">Anyone</Label>
                   </div>
                 </RadioGroup>
               </div>
 
               {/* Relationship */}
               <div className="space-y-3">
-                <Label htmlFor="relationship">Relationship</Label>
+                <Label htmlFor="relationship" className="text-sm sm:text-base">Relationship</Label>
                 <Select
                   value={formData.relationship}
                   onValueChange={(value) => setFormData({ ...formData, relationship: value })}
                 >
-                  <SelectTrigger id="relationship">
+                  <SelectTrigger id="relationship" className="h-10">
                     <SelectValue placeholder="Select relationship" />
                   </SelectTrigger>
                   <SelectContent>
@@ -133,12 +133,12 @@ export function GiftFinder() {
 
               {/* Occasion */}
               <div className="space-y-3">
-                <Label htmlFor="occasion">Occasion</Label>
+                <Label htmlFor="occasion" className="text-sm sm:text-base">Occasion</Label>
                 <Select
                   value={formData.occasion}
                   onValueChange={(value) => setFormData({ ...formData, occasion: value })}
                 >
-                  <SelectTrigger id="occasion">
+                  <SelectTrigger id="occasion" className="h-10">
                     <SelectValue placeholder="Select occasion" />
                   </SelectTrigger>
                   <SelectContent>
@@ -154,12 +154,12 @@ export function GiftFinder() {
 
               {/* Age Group */}
               <div className="space-y-3">
-                <Label htmlFor="age">Age Group</Label>
+                <Label htmlFor="age" className="text-sm sm:text-base">Age Group</Label>
                 <Select
                   value={formData.ageGroup}
                   onValueChange={(value) => setFormData({ ...formData, ageGroup: value })}
                 >
-                  <SelectTrigger id="age">
+                  <SelectTrigger id="age" className="h-10">
                     <SelectValue placeholder="Select age group" />
                   </SelectTrigger>
                   <SelectContent>
@@ -171,7 +171,7 @@ export function GiftFinder() {
                 </Select>
               </div>
 
-              <Button type="submit" className="w-full rounded-full" size="lg">
+              <Button type="submit" className="w-full rounded-full h-12 text-base" size="lg">
                 Find My Perfect Gift 🎁
               </Button>
             </form>

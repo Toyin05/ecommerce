@@ -56,22 +56,22 @@ export function FilterSidebar({
   const deliveryTimeOptions = ["Same Day", "Next Day", "2-3 Days", "1 Week"];
 
   return (
-    <div className="space-y-6 pr-6">
+    <div className="space-y-4 sm:space-y-6 pr-4 sm:pr-6">
       <div>
-        <h3 className="mb-4">Filters</h3>
+        <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Filters</h3>
       </div>
 
       {/* Price Range */}
       <div>
-        <Label className="mb-3 block">Price Range</Label>
+        <Label className="mb-2 sm:mb-3 block text-sm sm:text-base">Price Range</Label>
         <Slider
           value={priceRange}
           onValueChange={onPriceChange}
           max={500}
           step={10}
-          className="mb-3"
+          className="mb-2 sm:mb-3"
         />
-        <div className="flex justify-between text-sm text-muted-foreground">
+        <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
           <span>${priceRange[0]}</span>
           <span>${priceRange[1]}</span>
         </div>
@@ -81,8 +81,8 @@ export function FilterSidebar({
 
       {/* Categories */}
       <div>
-        <Label className="mb-3 block">Category</Label>
-        <div className="space-y-2">
+        <Label className="mb-2 sm:mb-3 block text-sm sm:text-base">Category</Label>
+        <div className="space-y-1 sm:space-y-2">
           {categories.map((category) => (
             <div key={category} className="flex items-center space-x-2">
               <Checkbox
@@ -92,7 +92,7 @@ export function FilterSidebar({
               />
               <label
                 htmlFor={`category-${category}`}
-                className="text-sm cursor-pointer"
+                className="text-xs sm:text-sm cursor-pointer leading-tight"
               >
                 {category}
               </label>
@@ -105,8 +105,8 @@ export function FilterSidebar({
 
       {/* Occasions */}
       <div>
-        <Label className="mb-3 block">Occasion</Label>
-        <div className="space-y-2">
+        <Label className="mb-2 sm:mb-3 block text-sm sm:text-base">Occasion</Label>
+        <div className="space-y-1 sm:space-y-2">
           {occasions.map((occasion) => (
             <div key={occasion} className="flex items-center space-x-2">
               <Checkbox
@@ -116,7 +116,7 @@ export function FilterSidebar({
               />
               <label
                 htmlFor={`occasion-${occasion}`}
-                className="text-sm cursor-pointer"
+                className="text-xs sm:text-sm cursor-pointer leading-tight"
               >
                 {occasion}
               </label>
@@ -129,8 +129,8 @@ export function FilterSidebar({
 
       {/* Rating */}
       <div>
-        <Label className="mb-3 block">Rating</Label>
-        <div className="space-y-2">
+        <Label className="mb-2 sm:mb-3 block text-sm sm:text-base">Rating</Label>
+        <div className="space-y-1 sm:space-y-2">
           {[5, 4, 3, 2, 1].map((rating) => (
             <div key={rating} className="flex items-center space-x-2">
               <Checkbox
@@ -140,10 +140,10 @@ export function FilterSidebar({
               />
               <label
                 htmlFor={`rating-${rating}`}
-                className="text-sm cursor-pointer flex items-center gap-1"
+                className="text-xs sm:text-sm cursor-pointer flex items-center gap-1 leading-tight"
               >
                 {Array.from({ length: rating }).map((_, i) => (
-                  <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+                  <Star key={i} className="h-2 w-2 sm:h-3 sm:w-3 fill-primary text-primary" />
                 ))}
                 <span className="ml-1">& Up</span>
               </label>
@@ -156,8 +156,8 @@ export function FilterSidebar({
 
       {/* Availability */}
       <div>
-        <Label className="mb-3 block">Availability</Label>
-        <div className="space-y-2">
+        <Label className="mb-2 sm:mb-3 block text-sm sm:text-base">Availability</Label>
+        <div className="space-y-1 sm:space-y-2">
           {availabilityOptions.map((availability) => (
             <div key={availability} className="flex items-center space-x-2">
               <Checkbox
@@ -167,7 +167,7 @@ export function FilterSidebar({
               />
               <label
                 htmlFor={`availability-${availability}`}
-                className="text-sm cursor-pointer"
+                className="text-xs sm:text-sm cursor-pointer leading-tight"
               >
                 {availability}
               </label>
@@ -180,8 +180,8 @@ export function FilterSidebar({
 
       {/* Delivery Time */}
       <div>
-        <Label className="mb-3 block">Delivery Time</Label>
-        <div className="space-y-2">
+        <Label className="mb-2 sm:mb-3 block text-sm sm:text-base">Delivery Time</Label>
+        <div className="space-y-1 sm:space-y-2">
           {deliveryTimeOptions.map((time) => (
             <div key={time} className="flex items-center space-x-2">
               <Checkbox
@@ -191,7 +191,7 @@ export function FilterSidebar({
               />
               <label
                 htmlFor={`delivery-${time}`}
-                className="text-sm cursor-pointer"
+                className="text-xs sm:text-sm cursor-pointer leading-tight"
               >
                 {time}
               </label>

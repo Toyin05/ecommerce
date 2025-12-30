@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 export function BulkOrderPage() {
   const { items, addItem, removeItem, updateQuantity, updateCustomization, getTotalItems, getTotalPrice, clearOrder } = useBulkOrder();
@@ -140,18 +140,18 @@ export function BulkOrderPage() {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="container mx-auto px-4 py-16 relative">
+          <div className="container mx-auto px-4 py-8 sm:py-12 lg:py-16 relative">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4">
                 Need gifts for your team, clients, or event? We've got you covered 🎁
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-sm sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8">
                 Bulk discounts, personalized packaging, and fast delivery — all in one place.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="gap-2 bg-primary hover:bg-primary/90"
+                  className="gap-2 bg-primary hover:bg-primary/90 w-full sm:w-auto h-12"
                   onClick={() => {
                     document.getElementById("product-selection")?.scrollIntoView({ behavior: "smooth" });
                   }}
@@ -162,7 +162,7 @@ export function BulkOrderPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2 border-secondary text-secondary hover:bg-secondary/10"
+                  className="gap-2 border-secondary text-secondary hover:bg-secondary/10 w-full sm:w-auto h-12"
                 >
                   <MessageSquare className="h-5 w-5" />
                   Talk to a Gift Consultant
@@ -170,18 +170,18 @@ export function BulkOrderPage() {
               </div>
 
               {/* Bulk Discount Info */}
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-                <div className="bg-card/80 backdrop-blur-sm rounded-lg border p-4">
-                  <p className="font-semibold text-primary">5% OFF</p>
-                  <p className="text-sm text-muted-foreground">Orders $250+</p>
+              <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto">
+                <div className="bg-card/80 backdrop-blur-sm rounded-lg border p-3 sm:p-4">
+                  <p className="font-semibold text-primary text-sm sm:text-base">5% OFF</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Orders $250+</p>
                 </div>
-                <div className="bg-card/80 backdrop-blur-sm rounded-lg border p-4">
-                  <p className="font-semibold text-primary">10% OFF</p>
-                  <p className="text-sm text-muted-foreground">Orders $500+</p>
+                <div className="bg-card/80 backdrop-blur-sm rounded-lg border p-3 sm:p-4">
+                  <p className="font-semibold text-primary text-sm sm:text-base">10% OFF</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Orders $500+</p>
                 </div>
-                <div className="bg-card/80 backdrop-blur-sm rounded-lg border p-4">
-                  <p className="font-semibold text-primary">15% OFF</p>
-                  <p className="text-sm text-muted-foreground">Orders $1000+</p>
+                <div className="bg-card/80 backdrop-blur-sm rounded-lg border p-3 sm:p-4">
+                  <p className="font-semibold text-primary text-sm sm:text-base">15% OFF</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Orders $1000+</p>
                 </div>
               </div>
             </div>
@@ -189,22 +189,22 @@ export function BulkOrderPage() {
         </div>
       )}
 
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="flex-1 container mx-auto px-4 py-4 sm:py-6 lg:py-8">
         {/* Product Selection Step */}
         {currentStep === "selection" && (
           <div id="product-selection">
             {/* Filter and Search Bar */}
-            <div className="mb-8 bg-card rounded-lg border p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Filter className="h-5 w-5 text-primary" />
-                <h2 className="text-xl font-semibold">Filter & Search</h2>
+            <div className="mb-6 sm:mb-8 bg-card rounded-lg border p-4 sm:p-6">
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                <Filter className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                <h2 className="text-lg sm:text-xl font-semibold">Filter & Search</h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div>
-                  <Label>Category</Label>
+                  <Label className="text-sm">Category</Label>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1 h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -217,9 +217,9 @@ export function BulkOrderPage() {
                 </div>
 
                 <div>
-                  <Label>Occasion</Label>
+                  <Label className="text-sm">Occasion</Label>
                   <Select value={selectedOccasion} onValueChange={setSelectedOccasion}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1 h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -232,9 +232,9 @@ export function BulkOrderPage() {
                 </div>
 
                 <div>
-                  <Label>Price Range</Label>
+                  <Label className="text-sm">Price Range</Label>
                   <Select value={priceRange} onValueChange={setPriceRange}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1 h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -247,9 +247,9 @@ export function BulkOrderPage() {
                 </div>
 
                 <div>
-                  <Label>Delivery Time</Label>
+                  <Label className="text-sm">Delivery Time</Label>
                   <Select defaultValue="all">
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1 h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -262,12 +262,12 @@ export function BulkOrderPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col gap-3">
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     placeholder="Search for gifts available in bulk..."
-                    className="pl-10"
+                    className="pl-10 h-10"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -278,7 +278,7 @@ export function BulkOrderPage() {
                     checked={customizableOnly}
                     onCheckedChange={(checked) => setCustomizableOnly(checked as boolean)}
                   />
-                  <Label htmlFor="customizable" className="cursor-pointer">
+                  <Label htmlFor="customizable" className="cursor-pointer text-sm">
                     Customizable Items Only
                   </Label>
                 </div>
@@ -293,10 +293,10 @@ export function BulkOrderPage() {
                       <SheetTrigger asChild>
                         <Button
                           size="lg"
-                          className="fixed bottom-8 right-8 h-20 w-20 rounded-full shadow-lg hover:shadow-xl transition-all z-50 p-0 bg-gradient-to-br from-primary to-secondary hover:scale-110"
+                          className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 h-16 w-16 sm:h-20 sm:w-20 rounded-full shadow-lg hover:shadow-xl transition-all z-50 p-0 bg-gradient-to-br from-primary to-secondary hover:scale-110"
                         >
                           <div className="flex flex-col items-center justify-center relative w-full h-full">
-                            <ShoppingBag className="h-7 w-7" />
+                            <ShoppingBag className="h-5 w-5 sm:h-7 sm:w-7" />
                             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
                               <defs>
                                 <path
@@ -304,14 +304,14 @@ export function BulkOrderPage() {
                                   d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0"
                                 />
                               </defs>
-                              <text className="fill-white text-[8px] tracking-wider" style={{ fontWeight: 600 }}>
+                              <text className="fill-white text-[6px] sm:text-[8px] tracking-wider" style={{ fontWeight: 600 }}>
                                 <textPath href="#circlePath" startOffset="50%" textAnchor="middle">
                                   BULK ORDER CHECKOUT
                                 </textPath>
                               </text>
                             </svg>
                             {getTotalItems() > 0 && (
-                              <Badge className="absolute -top-3 -right-3 h-8 w-8 rounded-full p-0 flex items-center justify-center font-semibold bg-red-500 border-4 border-white shadow-md animate-in zoom-in duration-200">
+                              <Badge className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 h-6 w-6 sm:h-8 sm:w-8 rounded-full p-0 flex items-center justify-center font-semibold bg-red-500 border-2 sm:border-4 border-white shadow-md animate-in zoom-in duration-200 text-xs sm:text-sm">
                                 {getTotalItems()}
                               </Badge>
                             )}
@@ -327,26 +327,26 @@ export function BulkOrderPage() {
                 
                 <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
                   <SheetHeader>
-                    <SheetTitle>My Bulk Order 🎁</SheetTitle>
-                    <SheetDescription>
+                    <SheetTitle className="text-lg sm:text-xl">My Bulk Order 🎁</SheetTitle>
+                    <SheetDescription className="text-sm">
                       Review your bulk order items and proceed to customization
                     </SheetDescription>
                   </SheetHeader>
 
                     {items.length === 0 ? (
-                      <div className="flex flex-col items-center justify-center py-12 text-center">
-                        <ShoppingBag className="h-12 w-12 text-muted-foreground mb-4" />
-                        <p className="text-muted-foreground mb-2">No items in bulk order</p>
-                        <p className="text-sm text-muted-foreground">
+                      <div className="flex flex-col items-center justify-center py-8 sm:py-12 text-center">
+                        <ShoppingBag className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mb-4" />
+                        <p className="text-sm sm:text-base text-muted-foreground mb-2">No items in bulk order</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           Add items from the product list
                         </p>
                       </div>
                     ) : (
                       <>
-                        <div className="space-y-4 py-6">
+                        <div className="space-y-3 sm:space-y-4 py-4 sm:py-6">
                           {items.map((item) => (
-                            <div key={item.product.id} className="flex gap-3 border rounded-lg p-3">
-                              <div className="w-20 h-20 rounded-md overflow-hidden bg-muted flex-shrink-0">
+                            <div key={item.product.id} className="flex gap-2 sm:gap-3 border rounded-lg p-2 sm:p-3">
+                              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden bg-muted flex-shrink-0">
                                 <ImageWithFallback
                                   src={item.product.image}
                                   alt={item.product.title}
@@ -354,40 +354,40 @@ export function BulkOrderPage() {
                                 />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="font-medium line-clamp-2 text-sm mb-1">
+                                <p className="font-medium line-clamp-2 text-xs sm:text-sm mb-1">
                                   {item.product.title}
                                 </p>
-                                <p className="text-sm text-muted-foreground mb-2">
+                                <p className="text-xs sm:text-sm text-muted-foreground mb-2">
                                   {item.product.price} per unit
                                 </p>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1 sm:gap-2">
                                   <Button
                                     size="icon"
                                     variant="outline"
-                                    className="h-7 w-7"
+                                    className="h-6 w-6 sm:h-7 sm:w-7"
                                     onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                                     disabled={item.quantity <= 10}
                                   >
-                                    <Minus className="h-3 w-3" />
+                                    <Minus className="h-2 w-2 sm:h-3 sm:w-3" />
                                   </Button>
-                                  <span className="text-sm font-medium w-12 text-center">
+                                  <span className="text-xs sm:text-sm font-medium w-8 sm:w-12 text-center">
                                     {item.quantity}
                                   </span>
                                   <Button
                                     size="icon"
                                     variant="outline"
-                                    className="h-7 w-7"
+                                    className="h-6 w-6 sm:h-7 sm:w-7"
                                     onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                                   >
-                                    <Plus className="h-3 w-3" />
+                                    <Plus className="h-2 w-2 sm:h-3 sm:w-3" />
                                   </Button>
                                   <Button
                                     size="icon"
                                     variant="ghost"
-                                    className="h-7 w-7 ml-auto"
+                                    className="h-6 w-6 sm:h-7 sm:w-7 ml-auto"
                                     onClick={() => removeItem(item.product.id)}
                                   >
-                                    <X className="h-3 w-3" />
+                                    <X className="h-2 w-2 sm:h-3 sm:w-3" />
                                   </Button>
                                 </div>
                               </div>
@@ -397,26 +397,26 @@ export function BulkOrderPage() {
 
                         <Separator />
 
-                        <div className="space-y-2 py-4">
-                          <div className="flex justify-between text-sm">
+                        <div className="space-y-2 py-3 sm:py-4">
+                          <div className="flex justify-between text-xs sm:text-sm">
                             <span className="text-muted-foreground">Subtotal</span>
                             <span>${subtotal.toFixed(2)}</span>
                           </div>
                           {discountRate > 0 && (
-                            <div className="flex justify-between text-sm text-primary">
+                            <div className="flex justify-between text-xs sm:text-sm text-primary">
                               <span>Bulk Discount ({(discountRate * 100).toFixed(0)}%)</span>
                               <span>-${discount.toFixed(2)}</span>
                             </div>
                           )}
                           <Separator />
-                          <div className="flex justify-between font-semibold">
+                          <div className="flex justify-between font-semibold text-sm">
                             <span>Total</span>
                             <span>${total.toFixed(2)}</span>
                           </div>
                         </div>
 
                         <Button
-                          className="w-full"
+                          className="w-full h-12"
                           size="lg"
                           onClick={handleProceedToCustomization}
                         >
@@ -428,14 +428,14 @@ export function BulkOrderPage() {
               </Sheet>
 
             {/* Product Grid */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-muted-foreground">
+            <div className="mb-6 sm:mb-8">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   {filteredProducts.length} products available for bulk orders
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
@@ -448,12 +448,12 @@ export function BulkOrderPage() {
                         className="w-full h-full object-cover hover:scale-105 transition-transform"
                       />
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold mb-2 line-clamp-2">{product.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                    <div className="p-3 sm:p-4">
+                      <h3 className="font-semibold mb-2 line-clamp-2 text-sm sm:text-base">{product.title}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 line-clamp-2">
                         {product.description}
                       </p>
-                      <div className="flex items-center gap-2 mb-3">
+                      <div className="flex items-center gap-1 sm:gap-2 mb-3">
                         <Badge variant="secondary" className="text-xs">
                           Min. 10 units
                         </Badge>
@@ -463,12 +463,12 @@ export function BulkOrderPage() {
                       </div>
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <p className="text-sm text-muted-foreground">Per unit</p>
-                          <p className="font-semibold">{product.price}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground">Per unit</p>
+                          <p className="font-semibold text-sm sm:text-base">{product.price}</p>
                         </div>
                       </div>
                       <Button
-                        className="w-full"
+                        className="w-full h-9 text-xs sm:text-sm"
                         onClick={() => handleAddToBulkOrder(product)}
                       >
                         Add to Bulk Order
@@ -484,58 +484,58 @@ export function BulkOrderPage() {
         {/* Customization Step */}
         {currentStep === "customization" && (
           <div>
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <Button
                 variant="ghost"
                 onClick={() => setCurrentStep("selection")}
-                className="mb-4"
+                className="mb-3 sm:mb-4 h-10 text-sm"
               >
                 ← Back to Product Selection
               </Button>
-              <h2 className="text-3xl mb-2">Customize Your Bulk Order</h2>
-              <p className="text-muted-foreground">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl mb-2">Customize Your Bulk Order</h2>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Add personalization to make your gifts extra special
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {items.map((item) => (
-                <div key={item.product.id} className="bg-card rounded-lg border p-6">
-                  <div className="flex gap-4 mb-6">
-                    <div className="w-24 h-24 rounded-md overflow-hidden bg-muted flex-shrink-0">
+                <div key={item.product.id} className="bg-card rounded-lg border p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-md overflow-hidden bg-muted flex-shrink-0 mx-auto sm:mx-0">
                       <ImageWithFallback
                         src={item.product.image}
                         alt={item.product.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold mb-1">{item.product.title}</h3>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="flex-1 text-center sm:text-left">
+                      <h3 className="font-semibold mb-1 text-sm sm:text-base">{item.product.title}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         Quantity: {item.quantity} units
                       </p>
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     <div>
-                      <Label htmlFor={`logo-${item.product.id}`}>Add Company Logo</Label>
-                      <div className="mt-2 border-2 border-dashed rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer">
-                        <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                        <p className="text-sm text-muted-foreground">
+                      <Label htmlFor={`logo-${item.product.id}`} className="text-sm">Add Company Logo</Label>
+                      <div className="mt-2 border-2 border-dashed rounded-lg p-4 sm:p-6 text-center hover:border-primary transition-colors cursor-pointer">
+                        <Upload className="h-6 w-6 sm:h-8 sm:w-8 mx-auto mb-2 text-muted-foreground" />
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           Click to upload logo (PNG, JPG)
                         </p>
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor={`message-${item.product.id}`}>
+                      <Label htmlFor={`message-${item.product.id}`} className="text-sm">
                         Personalized Message Card
                       </Label>
                       <Textarea
                         id={`message-${item.product.id}`}
                         placeholder="Enter your message for the gift card..."
-                        rows={4}
+                        rows={3}
                         className="mt-2"
                         onChange={(e) =>
                           updateCustomization(item.product.id, { message: e.target.value })
@@ -544,7 +544,7 @@ export function BulkOrderPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor={`packaging-${item.product.id}`}>
+                      <Label htmlFor={`packaging-${item.product.id}`} className="text-sm">
                         Packaging Option
                       </Label>
                       <Select
@@ -552,7 +552,7 @@ export function BulkOrderPage() {
                           updateCustomization(item.product.id, { packaging: value })
                         }
                       >
-                        <SelectTrigger className="mt-2">
+                        <SelectTrigger className="mt-2 h-10">
                           <SelectValue placeholder="Select packaging" />
                         </SelectTrigger>
                         <SelectContent>
@@ -565,13 +565,13 @@ export function BulkOrderPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor={`delivery-note-${item.product.id}`}>
+                      <Label htmlFor={`delivery-note-${item.product.id}`} className="text-sm">
                         Delivery Instructions
                       </Label>
                       <Textarea
                         id={`delivery-note-${item.product.id}`}
                         placeholder="e.g., Deliver directly to employees"
-                        rows={4}
+                        rows={3}
                         className="mt-2"
                         onChange={(e) =>
                           updateCustomization(item.product.id, { deliveryNote: e.target.value })
@@ -583,17 +583,17 @@ export function BulkOrderPage() {
               ))}
             </div>
 
-            <div className="mt-8 flex justify-between items-center bg-card rounded-lg border p-6">
-              <div>
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 bg-card rounded-lg border p-4 sm:p-6">
+              <div className="text-center sm:text-left">
                 <p className="text-sm text-muted-foreground">Total Order Value</p>
-                <p className="text-2xl font-semibold">${total.toFixed(2)}</p>
+                <p className="text-xl sm:text-2xl font-semibold">${total.toFixed(2)}</p>
                 {discountRate > 0 && (
-                  <p className="text-sm text-primary">
+                  <p className="text-xs sm:text-sm text-primary">
                     {(discountRate * 100).toFixed(0)}% bulk discount applied
                   </p>
                 )}
               </div>
-              <Button size="lg" onClick={handleProceedToCheckout}>
+              <Button size="lg" onClick={handleProceedToCheckout} className="h-12 w-full sm:w-auto">
                 Continue to Checkout
               </Button>
             </div>
@@ -603,28 +603,28 @@ export function BulkOrderPage() {
         {/* Checkout Step */}
         {currentStep === "checkout" && (
           <div>
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <Button
                 variant="ghost"
                 onClick={() => setCurrentStep("customization")}
-                className="mb-4"
+                className="mb-3 sm:mb-4 h-10 text-sm"
               >
                 ← Back to Customization
               </Button>
-              <h2 className="text-3xl mb-2">Complete Your Bulk Order</h2>
-              <p className="text-muted-foreground">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl mb-2">Complete Your Bulk Order</h2>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Enter your company details and finalize the order
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-6">
+            <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="lg:col-span-2 space-y-4 sm:space-y-6">
                 {/* Company Details */}
-                <div className="bg-card rounded-lg border p-6">
-                  <h3 className="font-semibold mb-4">Company Information</h3>
-                  <div className="space-y-4">
+                <div className="bg-card rounded-lg border p-4 sm:p-6">
+                  <h3 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Company Information</h3>
+                  <div className="space-y-3 sm:space-y-4">
                     <div>
-                      <Label htmlFor="company-name">Company Name *</Label>
+                      <Label htmlFor="company-name" className="text-sm">Company Name *</Label>
                       <Input
                         id="company-name"
                         placeholder="Your Company Ltd."
@@ -632,12 +632,13 @@ export function BulkOrderPage() {
                         onChange={(e) =>
                           setCompanyDetails({ ...companyDetails, companyName: e.target.value })
                         }
+                        className="mt-1 h-10"
                       />
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <Label htmlFor="contact-person">Contact Person *</Label>
+                        <Label htmlFor="contact-person" className="text-sm">Contact Person *</Label>
                         <Input
                           id="contact-person"
                           placeholder="John Doe"
@@ -648,10 +649,11 @@ export function BulkOrderPage() {
                               contactPerson: e.target.value,
                             })
                           }
+                          className="mt-1 h-10"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email">Email *</Label>
+                        <Label htmlFor="email" className="text-sm">Email *</Label>
                         <Input
                           id="email"
                           type="email"
@@ -660,13 +662,14 @@ export function BulkOrderPage() {
                           onChange={(e) =>
                             setCompanyDetails({ ...companyDetails, email: e.target.value })
                           }
+                          className="mt-1 h-10"
                         />
                       </div>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <Label htmlFor="phone">Phone</Label>
+                        <Label htmlFor="phone" className="text-sm">Phone</Label>
                         <Input
                           id="phone"
                           type="tel"
@@ -675,10 +678,11 @@ export function BulkOrderPage() {
                           onChange={(e) =>
                             setCompanyDetails({ ...companyDetails, phone: e.target.value })
                           }
+                          className="mt-1 h-10"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="delivery-date">Preferred Delivery Date</Label>
+                        <Label htmlFor="delivery-date" className="text-sm">Preferred Delivery Date</Label>
                         <Input
                           id="delivery-date"
                           type="date"
@@ -689,12 +693,13 @@ export function BulkOrderPage() {
                               deliveryDate: e.target.value,
                             })
                           }
+                          className="mt-1 h-10"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="address">Delivery Address *</Label>
+                      <Label htmlFor="address" className="text-sm">Delivery Address *</Label>
                       <Textarea
                         id="address"
                         placeholder="123 Business Street, Suite 100, New York, NY 10001"
@@ -703,33 +708,34 @@ export function BulkOrderPage() {
                         onChange={(e) =>
                           setCompanyDetails({ ...companyDetails, address: e.target.value })
                         }
+                        className="mt-1"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Payment Method */}
-                <div className="bg-card rounded-lg border p-6">
-                  <h3 className="font-semibold mb-4">Payment Method</h3>
+                <div className="bg-card rounded-lg border p-4 sm:p-6">
+                  <h3 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Payment Method</h3>
                   <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-2 p-4 border rounded-lg cursor-pointer hover:bg-muted/50">
+                    <div className="space-y-2 sm:space-y-3">
+                      <div className="flex items-center space-x-2 p-3 sm:p-4 border rounded-lg cursor-pointer hover:bg-muted/50">
                         <RadioGroupItem value="card" id="card" />
-                        <Label htmlFor="card" className="flex-1 cursor-pointer">
+                        <Label htmlFor="card" className="flex-1 cursor-pointer text-sm">
                           Credit / Debit Card
                         </Label>
                       </div>
 
-                      <div className="flex items-center space-x-2 p-4 border rounded-lg cursor-pointer hover:bg-muted/50">
+                      <div className="flex items-center space-x-2 p-3 sm:p-4 border rounded-lg cursor-pointer hover:bg-muted/50">
                         <RadioGroupItem value="transfer" id="transfer" />
-                        <Label htmlFor="transfer" className="flex-1 cursor-pointer">
+                        <Label htmlFor="transfer" className="flex-1 cursor-pointer text-sm">
                           Bank Transfer
                         </Label>
                       </div>
 
-                      <div className="flex items-center space-x-2 p-4 border rounded-lg cursor-pointer hover:bg-muted/50">
+                      <div className="flex items-center space-x-2 p-3 sm:p-4 border rounded-lg cursor-pointer hover:bg-muted/50">
                         <RadioGroupItem value="invoice" id="invoice" />
-                        <Label htmlFor="invoice" className="flex-1 cursor-pointer">
+                        <Label htmlFor="invoice" className="flex-1 cursor-pointer text-sm">
                           Invoice Request (30-day terms)
                         </Label>
                       </div>
@@ -737,9 +743,9 @@ export function BulkOrderPage() {
                   </RadioGroup>
 
                   {paymentMethod === "invoice" && (
-                    <div className="mt-4 p-4 bg-muted/50 rounded-lg">
-                      <p className="text-sm text-muted-foreground">
-                        <Check className="inline h-4 w-4 mr-1 text-primary" />
+                    <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-muted/50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-muted-foreground">
+                        <Check className="inline h-3 w-3 sm:h-4 sm:w-4 mr-1 text-primary" />
                         We'll send you an invoice after order confirmation. Payment due within 30 days.
                       </p>
                     </div>
@@ -748,14 +754,14 @@ export function BulkOrderPage() {
               </div>
 
               {/* Order Summary */}
-              <div className="lg:col-span-1">
-                <div className="bg-card rounded-lg border p-6 sticky top-20">
-                  <h3 className="font-semibold mb-4">Order Summary</h3>
+              <div className="lg:col-span-1 order-first lg:order-last">
+                <div className="bg-card rounded-lg border p-4 sm:p-6 sticky top-16 sm:top-20">
+                  <h3 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Order Summary</h3>
 
-                  <div className="space-y-3 mb-4">
+                  <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
                     {items.map((item) => (
-                      <div key={item.product.id} className="flex gap-3 text-sm">
-                        <div className="w-12 h-12 rounded-md overflow-hidden bg-muted flex-shrink-0">
+                      <div key={item.product.id} className="flex gap-2 sm:gap-3 text-xs sm:text-sm">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-md overflow-hidden bg-muted flex-shrink-0">
                           <ImageWithFallback
                             src={item.product.image}
                             alt={item.product.title}
@@ -777,27 +783,27 @@ export function BulkOrderPage() {
                     ))}
                   </div>
 
-                  <Separator className="my-4" />
+                  <Separator className="my-3 sm:my-4" />
 
                   <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
                       <span>${subtotal.toFixed(2)}</span>
                     </div>
                     {discountRate > 0 && (
-                      <div className="flex justify-between text-sm text-primary">
+                      <div className="flex justify-between text-xs sm:text-sm text-primary">
                         <span>Bulk Discount ({(discountRate * 100).toFixed(0)}%)</span>
                         <span>-${discount.toFixed(2)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span className="text-muted-foreground">Total Items</span>
                       <span>{getTotalItems()} units</span>
                     </div>
 
                     <Separator className="my-2" />
 
-                    <div className="flex justify-between font-semibold">
+                    <div className="flex justify-between font-semibold text-sm sm:text-base">
                       <span>Total</span>
                       <span>${total.toFixed(2)}</span>
                     </div>
@@ -805,13 +811,13 @@ export function BulkOrderPage() {
 
                   <Button
                     size="lg"
-                    className="w-full mt-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                    className="w-full mt-4 sm:mt-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90 h-12"
                     onClick={handlePlaceOrder}
                   >
                     Place Bulk Order
                   </Button>
 
-                  <p className="text-xs text-muted-foreground text-center mt-4">
+                  <p className="text-xs text-muted-foreground text-center mt-3 sm:mt-4">
                     A gift consultant will contact you within 24 hours to confirm your order
                   </p>
                 </div>

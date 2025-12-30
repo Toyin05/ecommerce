@@ -35,41 +35,41 @@ export function Header() {
         {/* Mobile Menu Button */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="lg:hidden rounded-full">
-              <Menu className="h-6 w-6" />
+            <Button variant="ghost" size="icon" className="lg:hidden rounded-full h-10 w-10">
+              <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-full p-0 flex flex-col h-full">
-            <SheetHeader className="p-6 pb-4">
+          <SheetContent side="left" className="w-full sm:w-80 p-0 flex flex-col h-full">
+            <SheetHeader className="p-4 sm:p-6 pb-4">
               <SheetTitle className="text-left flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
-                  <Gift className="h-6 w-6 text-white" />
+                <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
+                  <Gift className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold">Gifted & Co.</span>
-                  <span className="text-xs text-muted-foreground">Gift easy. Gift smart.</span>
+                  <span className="font-semibold text-base sm:text-base">Gifted & Co.</span>
+                  <span className="text-xs text-muted-foreground hidden sm:block">Gift easy. Gift smart.</span>
                 </div>
               </SheetTitle>
-              <SheetDescription>
+              <SheetDescription className="text-sm">
                 Navigate our gift collections and services
               </SheetDescription>
             </SheetHeader>
 
-            <div className="flex-1 overflow-y-auto px-6 pb-6">
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 pb-6">
               {/* Search Bar */}
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <div className="relative w-full">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     placeholder="Search for the perfect gift..."
-                    className="pl-10 rounded-full border-muted bg-accent/50"
+                    className="pl-10 rounded-full border-muted bg-accent/50 h-10"
                   />
                 </div>
               </div>
 
               {/* Shopping Assistant */}
               <Link to="/?openGiftFinder=true" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="default" size="lg" className="w-full gap-2 rounded-full bg-secondary hover:bg-secondary/90 mb-4">
+                <Button variant="default" size="lg" className="w-full gap-2 rounded-full bg-secondary hover:bg-secondary/90 mb-4 h-12 text-base">
                   <Sparkles className="h-5 w-5" />
                   Shopping Assistant
                 </Button>
@@ -79,21 +79,21 @@ export function Header() {
 
               {/* Auth Section - Mobile */}
               {!loading && (
-                <div className="mb-6">
+                <div className="mb-4 sm:mb-6">
                   {user ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-3 p-3 bg-accent/50 rounded-xl">
-                        <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-                          <User className="h-5 w-5 text-primary" />
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/20 flex items-center justify-center">
+                          <User className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium truncate">{user.email}</p>
+                          <p className="font-medium truncate text-sm sm:text-base">{user.email}</p>
                           <p className="text-xs text-muted-foreground">Signed in</p>
                         </div>
                       </div>
                       <Button
                         variant="outline"
-                        className="w-full gap-2"
+                        className="w-full gap-2 h-10"
                         onClick={() => {
                           handleSignOut();
                           setMobileMenuOpen(false);
@@ -106,30 +106,30 @@ export function Header() {
                   ) : (
                     <div className="space-y-3">
                       <Link to="/auth/login" onClick={() => setMobileMenuOpen(false)}>
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="w-full h-10">
                           Sign In
                         </Button>
                       </Link>
                       <Link to="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
-                        <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                        <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 h-10">
                           Create Account
                         </Button>
                       </Link>
                     </div>
                   )}
-                  <Separator className="my-6" />
+                  <Separator className="my-4 sm:my-6" />
                 </div>
               )}
 
               {/* Categories */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h3 className="font-semibold mb-3 text-primary">By Occasion</h3>
-                  <ul className="space-y-3">
+                  <h3 className="font-semibold mb-3 text-primary text-base sm:text-sm">By Occasion</h3>
+                  <ul className="space-y-2 sm:space-y-3">
                     <li>
                       <Link 
                         to="/products?occasion=Birthdays" 
-                        className="block py-2 hover:text-primary transition-colors"
+                        className="block py-2 hover:text-primary transition-colors text-sm sm:text-base"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Birthdays
@@ -138,7 +138,7 @@ export function Header() {
                     <li>
                       <Link 
                         to="/products?occasion=Weddings" 
-                        className="block py-2 hover:text-primary transition-colors"
+                        className="block py-2 hover:text-primary transition-colors text-sm sm:text-base"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Weddings
@@ -147,7 +147,7 @@ export function Header() {
                     <li>
                       <Link 
                         to="/products?occasion=Anniversaries" 
-                        className="block py-2 hover:text-primary transition-colors"
+                        className="block py-2 hover:text-primary transition-colors text-sm sm:text-base"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Anniversaries
@@ -156,7 +156,7 @@ export function Header() {
                     <li>
                       <Link 
                         to="/products?occasion=Baby%20Showers" 
-                        className="block py-2 hover:text-primary transition-colors"
+                        className="block py-2 hover:text-primary transition-colors text-sm sm:text-base"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Baby Showers
@@ -165,7 +165,7 @@ export function Header() {
                     <li>
                       <Link 
                         to="/products?occasion=Graduations" 
-                        className="block py-2 hover:text-primary transition-colors"
+                        className="block py-2 hover:text-primary transition-colors text-sm sm:text-base"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Graduations

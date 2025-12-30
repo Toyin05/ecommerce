@@ -18,19 +18,32 @@ interface FeaturedProductsProps {
 
 export function FeaturedProducts({ title, subtitle, products }: FeaturedProductsProps) {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-accent/30">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-white to-accent/30">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl mb-3">{title}</h2>
-          {subtitle && <p className="text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>}
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3">{title}</h2>
+          {subtitle && <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">{subtitle}</p>}
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
+        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+          {products.map((product) => {
+            const { id, image, title, price, originalPrice, badge, tag } = product;
+            return (
+              <div key={id}>
+                <ProductCard 
+                  id={id}
+                  image={image}
+                  title={title}
+                  price={price}
+                  originalPrice={originalPrice}
+                  badge={badge}
+                  tag={tag}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

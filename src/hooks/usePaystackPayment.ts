@@ -7,7 +7,6 @@ import { useAuth } from '../context/AuthContext';
 import {
   initializePaystackPayment,
   verifyPayment,
-  generatePaymentReference,
   dollarsToKobo,
   type PaymentVerificationResponse,
 } from '../lib/paystack';
@@ -120,8 +119,7 @@ export function usePaystackPayment(options: UsePaystackPaymentOptions): UsePayst
     setError(null);
 
     try {
-      // Generate unique reference for this payment
-      const reference = generatePaymentReference();
+      console.log('[usePaystackPayment] Initializing payment for amount:', amount, 'dollars');
 
       // Prepare metadata
       const paymentMetadata = {
@@ -132,15 +130,18 @@ export function usePaystackPayment(options: UsePaystackPaymentOptions): UsePayst
 
       // Convert amount to kobo (Nigerian kobo)
       const amountInKobo = dollarsToKobo(amount);
+      console.log('[usePaystackPayment] Amount in kobo:', amountInKobo);
 
       // Initialize Paystack payment
+      // Note: We don't generate a custom reference
+      // Paystack will generate its own reference and return it in the callback
       initializePaystackPayment(
         {
           email,
           amount: amountInKobo,
           currency,
-          reference,
           metadata: paymentMetadata,
+          // No reference - let Paystack generate it
         },
         handlePaymentSuccess,
         handlePaymentError,

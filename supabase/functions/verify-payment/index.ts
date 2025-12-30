@@ -66,11 +66,38 @@ interface VerifyPaymentResponse {
   payment?: {
     id: string;
     reference: string;
-    amount: number;
+    amount: number; // amount_kobo field from database
+    amount_naira: number; // human-readable naira amount
     currency: string;
     status: string;
     paid_at: string;
   };
+}
+
+// Helper function to create consistent error responses
+function createErrorResponse(message: string, status: number = 400): Response {
+  console.error(`[verify-payment] Error: ${message}`);
+  return new Response(
+    JSON.stringify({ 
+      success: false, 
+      error: message 
+    }),
+    { 
+      status,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    }
+  );
+}
+
+// Helper function to create success responses
+function createSuccessResponse(data: VerifyPaymentResponse): Response {
+  return new Response(
+    JSON.stringify(data),
+    { 
+      status: 200,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    }
+  );
 }
 
 serve(async (req: Request) => {
@@ -81,235 +108,211 @@ serve(async (req: Request) => {
 
   try {
     // Initialize Supabase client
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const paystackSecretKey = Deno.env.get('PAYSTACK_SECRET_KEY')!;
+    const supabaseUrl = Deno.env.get('SUPABASE_URL');
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const paystackSecretKey = Deno.env.get('PAYSTACK_SECRET_KEY');
     
     // Validate environment variables
     if (!supabaseUrl || !supabaseServiceKey || !paystackSecretKey) {
-      console.error('Missing required environment variables');
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Server configuration error' 
-        }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      console.error('[verify-payment] Missing required environment variables');
+      return createErrorResponse('Server configuration error', 500);
+    }
+    
+    // Additional Paystack key validation
+    if (!paystackSecretKey.startsWith('sk_')) {
+      console.error('[verify-payment] Invalid Paystack key format');
+      return createErrorResponse('Invalid Paystack configuration', 500);
     }
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Only allow POST requests
     if (req.method !== 'POST') {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Method not allowed' 
-        }),
-        { 
-          status: 405, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      return createErrorResponse('Method not allowed', 405);
     }
 
     // Parse request body
-    const requestData: VerifyPaymentRequest = await req.json();
+    let requestData: VerifyPaymentRequest;
+    try {
+      requestData = await req.json();
+    } catch (error) {
+      console.error('[verify-payment] Invalid JSON in request body:', error);
+      return createErrorResponse('Invalid request format');
+    }
+
     const { reference, expectedAmount, currency = 'NGN' } = requestData;
 
     // Validate request data
     if (!reference || typeof reference !== 'string' || reference.trim() === '') {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Payment reference is required' 
-        }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      return createErrorResponse('Payment reference is required');
     }
 
     // Get user from authorization header
     const authHeader = req.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Authorization required' 
-        }),
-        { 
-          status: 401, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      return createErrorResponse('Authorization required', 401);
     }
 
     const token = authHeader.split(' ')[1];
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-    
-    if (userError || !user) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Invalid or expired token' 
-        }),
-        { 
-          status: 401, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+    let user;
+    try {
+      const { data: { user: authUser }, error: userError } = await supabase.auth.getUser(token);
+      if (userError || !authUser) {
+        console.error('[verify-payment] User authentication failed');
+        return createErrorResponse('Invalid or expired token', 401);
+      }
+      user = authUser;
+    } catch (error) {
+      console.error('[verify-payment] Auth verification error');
+      return createErrorResponse('Authentication service error', 500);
     }
 
     // Check if payment reference has already been verified
-    const { data: existingPayment, error: checkError } = await supabase
-      .from('payments')
-      .select('id, status')
-      .eq('reference', reference)
-      .eq('user_id', user.id)
-      .single();
+    let existingPayment;
+    try {
+      const { data: payment, error: checkError } = await supabase
+        .from('payments')
+        .select('id, status, amount_kobo, amount_naira, currency')
+        .eq('reference', reference)
+        .eq('user_id', user.id)
+        .single();
 
-    if (checkError && checkError.code !== 'PGRST116') {
-      // PGRST116 is "not found", which is expected for new references
-      console.error('Error checking existing payment:', checkError);
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Database error' 
-        }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('[verify-payment] Database error checking existing payment');
+        return createErrorResponse('Database error', 500);
+      }
+
+      existingPayment = payment;
+    } catch (error) {
+      console.error('[verify-payment] Database connection error');
+      return createErrorResponse('Database service error', 500);
     }
 
     if (existingPayment) {
       // Payment reference already exists, return the existing record
-      return new Response(
-        JSON.stringify({ 
-          success: existingPayment.status === 'success',
-          payment: {
-            id: existingPayment.id,
-            reference,
-            status: existingPayment.status
-          }
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      const response: VerifyPaymentResponse = {
+        success: existingPayment.status === 'success',
+        payment: {
+          id: existingPayment.id,
+          reference,
+          amount: existingPayment.amount_kobo,
+          amount_naira: existingPayment.amount_naira || existingPayment.amount_kobo / 100,
+          currency: existingPayment.currency,
+          status: existingPayment.status,
+          paid_at: new Date().toISOString(),
         }
-      );
+      };
+      return createSuccessResponse(response);
     }
 
     // Verify payment with Paystack
     const paystackUrl = `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`;
     
-    const paystackResponse = await fetch(paystackUrl, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${paystackSecretKey}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!paystackResponse.ok) {
-      console.error('Paystack API error:', paystackResponse.status, paystackResponse.statusText);
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Payment verification failed' 
-        }),
-        { 
-          status: 502, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+    let paystackResponse;
+    try {
+      paystackResponse = await fetch(paystackUrl, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${paystackSecretKey}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('[verify-payment] Network error calling Paystack');
+      return createErrorResponse('Payment verification service unavailable', 503);
     }
 
-    const paystackData: PaystackVerificationResponse = await paystackResponse.json();
+    if (!paystackResponse.ok) {
+      const errorText = await paystackResponse.text().catch(() => 'Unknown error');
+      console.error(`[verify-payment] Paystack API error (${paystackResponse.status}): ${errorText}`);
+      
+      // Don't return 502 - that's a bad gateway error which suggests our server is misconfigured
+      // Instead, return a proper error indicating the payment verification failed
+      return createErrorResponse('Payment verification failed - please check your payment status', 400);
+    }
+
+    let paystackData: PaystackVerificationResponse;
+    try {
+      paystackData = await paystackResponse.json();
+    } catch (error) {
+      console.error('[verify-payment] Invalid JSON from Paystack:', error);
+      return createErrorResponse('Invalid response from payment service', 502);
+    }
 
     if (!paystackData.status) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: paystackData.message || 'Payment verification failed' 
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      console.error('[verify-payment] Paystack verification failed:', paystackData.message);
+      return createErrorResponse(paystackData.message || 'Payment verification failed', 400);
     }
 
     const paymentData = paystackData.data;
 
     // Validate payment details
     if (paymentData.status !== 'success') {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: `Payment ${paymentData.status}` 
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      return createErrorResponse(`Payment ${paymentData.status}`, 400);
     }
 
     if (paymentData.currency !== currency) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: `Invalid currency: expected ${currency}, got ${paymentData.currency}` 
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      return createErrorResponse(`Invalid currency: expected ${currency}, got ${paymentData.currency}`, 400);
     }
 
     if (expectedAmount && paymentData.amount !== expectedAmount) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: `Amount mismatch: expected ${expectedAmount}, got ${paymentData.amount}` 
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
+      return createErrorResponse(`Amount mismatch: expected ${expectedAmount}, got ${paymentData.amount}`, 400);
     }
 
     // Save payment record to database
-    const { data: paymentRecord, error: insertError } = await supabase
-      .from('payments')
-      .insert({
-        user_id: user.id,
-        reference: paymentData.reference,
-        amount: paymentData.amount,
-        currency: paymentData.currency,
-        status: 'success',
-        provider: 'paystack',
-        paid_at: paymentData.paid_at,
-      })
-      .select()
-      .single();
+    let paymentRecord;
+    try {
+      const { data, error: insertError } = await supabase
+        .from('payments')
+        .insert({
+          user_id: user.id,
+          reference: paymentData.reference,
+          amount_kobo: paymentData.amount,
+          amount_naira: paymentData.amount / 100, // Convert kobo to naira
+          currency: paymentData.currency,
+          status: 'success',
+          provider: 'paystack',
+          paid_at: paymentData.paid_at,
+        })
+        .select()
+        .single();
 
-    if (insertError) {
-      console.error('Error inserting payment record:', insertError);
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Failed to save payment record' 
-        }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      if (insertError) {
+        console.error('[verify-payment] Error inserting payment record:', insertError);
+        
+        // Handle duplicate reference gracefully
+        if (insertError.code === '23505') { // Unique constraint violation
+          console.log('[verify-payment] Duplicate reference, fetching existing record');
+          const { data: existing, error: fetchError } = await supabase
+            .from('payments')
+            .select('*')
+            .eq('reference', paymentData.reference)
+            .single();
+            
+          if (!fetchError && existing) {
+            const response: VerifyPaymentResponse = {
+              success: existing.status === 'success',
+              payment: {
+                id: existing.id,
+                reference: existing.reference,
+                amount: existing.amount_kobo,
+                amount_naira: existing.amount_naira || existing.amount_kobo / 100,
+                currency: existing.currency,
+                status: existing.status,
+                paid_at: existing.paid_at,
+              }
+            };
+            return createSuccessResponse(response);
+          }
         }
-      );
+        
+        return createErrorResponse('Failed to save payment record', 500);
+      }
+      
+      paymentRecord = data;
+    } catch (error) {
+      console.error('[verify-payment] Database insert error:', error);
+      return createErrorResponse('Database service error', 500);
     }
 
     // Return successful verification
@@ -318,31 +321,20 @@ serve(async (req: Request) => {
       payment: {
         id: paymentRecord.id,
         reference: paymentRecord.reference,
-        amount: paymentRecord.amount,
+        amount: paymentRecord.amount_kobo,
+        amount_naira: paymentRecord.amount_naira || paymentRecord.amount_kobo / 100,
         currency: paymentRecord.currency,
         status: paymentRecord.status,
         paid_at: paymentRecord.paid_at,
       }
     };
 
-    return new Response(
-      JSON.stringify(response),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
-    );
+    return createSuccessResponse(response);
 
   } catch (error) {
-    console.error('Unexpected error in verify-payment function:', error);
-    return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: 'Internal server error' 
-      }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
-    );
+    console.error('[verify-payment] Unexpected error:', error);
+    return createErrorResponse('Internal server error', 500);
   }
 });
+
+
