@@ -1,56 +1,96 @@
 import { Button } from "./ui/button";
-import { Sparkles, ArrowRight } from "lucide-react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Sparkles } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-accent via-white to-secondary/10">
-      {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-primary/10 blur-2xl" />
-      <div className="absolute bottom-20 right-20 w-32 h-32 rounded-full bg-secondary/10 blur-3xl" />
-      
-      <div className="container mx-auto px-4 py-12 sm:py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Left Content */}
-          <div className="space-y-4 sm:space-y-6 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-primary/10 text-primary">
-              <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="text-xs sm:text-sm">Thoughtful Gifts, Delivered with Love</span>
-            </div>
-            
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight">
-              Find the Perfect Gift for Every Occasion 🎉
-            </h1>
-            
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto md:mx-0">
-              From birthdays to weddings, surprises to 'just because,' we've got something special for everyone.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
-              <Button size="lg" className="rounded-full gap-2 shadow-lg hover:shadow-xl transition-shadow h-12 sm:h-auto text-base" asChild>
-                <Link to="/products">
-                  Shop Gifts
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+    <section 
+      className="relative w-full max-w-full overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/Landing Page Images/PerfectGift.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'scroll',
+        minHeight: '100vh'
+      }}
+    >
+      {/* Hero Content - Center vertically below navbar, left-aligned content */}
+      <div className="container mx-auto px-4 min-h-screen flex items-center pt-16 max-w-full">
+        <div className="w-full max-w-2xl ml-0 md:ml-8 lg:ml-16">
+          <div className="flex items-center gap-3 mb-4">
+            <Sparkles className="h-4 w-4 text-white flex-shrink-0" />
+            <span 
+              className="text-white whitespace-nowrap"
+              style={{
+                fontFamily: 'Poppins, sans-serif',
+                fontWeight: '400',
+                fontStyle: 'normal',
+                fontSize: '16px',
+                lineHeight: '160%',
+                letterSpacing: '0%',
+                verticalAlign: 'middle'
+              }}
+            >
+              Thoughtful Gifts, Delivered with Love
+            </span>
           </div>
 
-          {/* Right Content - Featured Image */}
-          <div className="relative mt-8 md:mt-0">
-            <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl sm:rounded-3xl blur-xl sm:blur-2xl" />
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1602347880090-a144f5b4d62c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwYm94JTIwY2VsZWJyYXRpb258ZW58MXx8fHwxNzYxNTU2MjI0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Beautiful gift presentation"
-                className="w-full h-64 xs:h-80 sm:h-96 md:h-[400px] object-cover"
-              />
-            </div>
-          </div>
+          <h1 
+            className="text-white mb-3"
+            style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontWeight: '500',
+              fontStyle: 'normal',
+              fontSize: '48px',
+              lineHeight: '120%',
+              letterSpacing: '0%',
+              verticalAlign: 'middle'
+            }}
+          >
+            Find the Perfect Gift for Every Occasion
+          </h1>
+          
+          <p 
+            className="text-white mb-6"
+            style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontWeight: '400',
+              fontStyle: 'normal',
+              fontSize: '16px',
+              lineHeight: '160%',
+              letterSpacing: '0%',
+              verticalAlign: 'middle',
+              marginBottom: '24px'
+            }}
+          >
+            From birthdays to weddings, surprise moments to 'just because', we've got something special for everyone.
+          </p>
+          
+          <Button 
+            size="lg" 
+            asChild
+            style={{
+              backgroundColor: '#FF8C42',
+              color: 'white',
+              borderRadius: '9999px',
+              padding: '10px 28px',
+              fontSize: '0.875rem',
+              fontWeight: '600',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(255, 140, 66, 0.4)'
+            }}
+            className="hover:opacity-90 transition-opacity"
+          >
+            <Link to="/products">
+              Shop Gifts →
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
   );
 }
+
 

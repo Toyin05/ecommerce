@@ -9,14 +9,9 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Brand */}
           <div className="space-y-3 sm:space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary">
-                <Gift className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-sm sm:text-base">Gifted & Co.</span>
-                <span className="text-xs text-gray-400 hidden xs:block">Gift easy. Gift smart.</span>
-              </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-sm sm:text-base text-white">Product Name</span>
+              <span className="text-xs text-gray-400">Gift easy. Gift smart.</span>
             </div>
             <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
               Because every gift deserves a little thought. We help you celebrate life's special moments with the perfect presents.
@@ -50,20 +45,47 @@ export function Footer() {
 
           {/* Newsletter */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <h4 className="mb-3 sm:mb-4 text-sm sm:text-base">Weekly Gift Ideas 💝</h4>
+            <h4 className="mb-3 sm:mb-4 text-sm sm:text-base">Ideas in Your Mail</h4>
             <p className="text-xs sm:text-sm text-gray-400 mb-4 leading-relaxed">
               Get inspiration and exclusive deals delivered to your inbox!
             </p>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Input
-                type="email"
-                placeholder="Your email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 rounded-full h-10 flex-1"
-              />
-              <Button className="rounded-full h-10 w-10 sm:w-auto px-4">
-                <Mail className="h-4 w-4" />
-                <span className="hidden sm:inline ml-2">Subscribe</span>
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-2 items-center">
+              <div style={{ width: '300px', minWidth: '200px', maxWidth: '200px' }}>
+                <Input
+                  type="text"
+                  placeholder="Search for the Perfect Gift"
+                  className="border-0 bg-transparent text-white placeholder:text-gray-400"
+                  style={{
+                    width: '100%',
+                    height: '36px',
+                    paddingLeft: '12px',
+                    paddingRight: '12px',
+                    borderRadius: '20px',
+                    borderWidth: '0.2px',
+                    backgroundColor: '#FFFFFF',
+                    color: '#717182',
+                    fontSize: '12px'
+                  }}
+                />
+              </div>
+              <button 
+                className="rounded-full border-0 text-white flex items-center justify-center whitespace-nowrap cursor-pointer hover:opacity-80 transition-opacity hover:shadow-lg"
+                style={{
+                  width: '80px',
+                  height: '36px',
+                  gap: '6px',
+                  paddingLeft: '8px',
+                  paddingRight: '10px',
+                  borderRadius: '16px',
+                  backgroundColor: '#FF8C42',
+                  opacity: 1,
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  flexShrink: 0
+                }}
+              >
+                Subscribe
+              </button>
             </div>
           </div>
         </div>
@@ -71,10 +93,17 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 pt-6 sm:pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs sm:text-sm text-gray-400 text-center sm:text-left">
-              © 2025 Gifted & Co. All rights reserved. Made with <Heart className="inline h-3 w-3 sm:h-4 sm:w-4 text-red-500" /> for thoughtful givers.
-            </p>
-            <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm text-gray-400 flex-wrap justify-center">
+            <div className="text-left">
+              <p className="text-xs sm:text-sm text-gray-400">
+                @2025 Product Name. All rights reserved.
+              </p>
+            </div>
+            <div className="flex-1 text-center">
+              <p className="text-xs sm:text-sm text-gray-400">
+                Made with <Heart className="inline h-3 w-3 sm:h-4 sm:w-4" style={{ color: '#FF8C42' }} /> for thoughtful givers
+              </p>
+            </div>
+            <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm text-gray-400 flex-wrap justify-center sm:justify-end">
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
               <a href="#" className="hover:text-primary transition-colors">Cookie Policy</a>

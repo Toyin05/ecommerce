@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -128,8 +127,6 @@ export function BulkOrderPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
-
       {/* Hero Section */}
       {currentStep === "selection" && (
         <div className="relative bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 overflow-hidden">
@@ -151,7 +148,7 @@ export function BulkOrderPage() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="gap-2 bg-primary hover:bg-primary/90 w-full sm:w-auto h-12"
+                  className="gap-2 bg-primary hover:bg-primary/90 hover:shadow-lg w-full sm:w-auto h-12"
                   onClick={() => {
                     document.getElementById("product-selection")?.scrollIntoView({ behavior: "smooth" });
                   }}
@@ -162,7 +159,7 @@ export function BulkOrderPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2 border-secondary text-secondary hover:bg-secondary/10 w-full sm:w-auto h-12"
+                  className="gap-2 border-secondary text-secondary hover:bg-secondary/10 hover:shadow-lg w-full sm:w-auto h-12"
                 >
                   <MessageSquare className="h-5 w-5" />
                   Talk to a Gift Consultant
@@ -831,3 +828,4 @@ export function BulkOrderPage() {
     </div>
   );
 }
+

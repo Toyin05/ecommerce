@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -136,8 +135,6 @@ export function CheckoutPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
-
       {/* Progress Indicator */}
       <div className="border-b bg-muted/30">
         <div className="container mx-auto px-4 py-3 sm:py-4">

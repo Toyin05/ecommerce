@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -48,7 +47,6 @@ export function CartPage() {
   if (items.length === 0) {
     return (
       <div className="flex flex-col min-h-screen">
-        <Header />
         <main className="flex-1 container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
             <ShoppingBag className="h-24 w-24 mx-auto text-muted-foreground mb-6" />
@@ -69,8 +67,6 @@ export function CartPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
-
       {/* Progress Indicator */}
       <div className="border-b bg-muted/30">
         <div className="container mx-auto px-4 py-3 sm:py-4">
@@ -323,4 +319,5 @@ export function CartPage() {
     </div>
   );
 }
+
 

@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { useParams, useSearchParams, Link, useNavigate } from "react-router-dom";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { FilterSidebar } from "../components/FilterSidebar";
 import { Button } from "../components/ui/button";
@@ -246,8 +245,6 @@ export function ProductListPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 py-6 sm:py-8 lg:py-12">
         <div className="container mx-auto px-4">
@@ -486,3 +483,4 @@ export function ProductListPage() {
     </div>
   );
 }
+

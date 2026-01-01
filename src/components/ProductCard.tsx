@@ -1,10 +1,11 @@
+import React from "react";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
 
 interface ProductCardProps {
@@ -21,7 +22,7 @@ interface ProductCardProps {
 export function ProductCard({ id, image, title, price, originalPrice, badge, tag, category }: ProductCardProps) {
   const { addToCart } = useCart();
   
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart({
@@ -36,14 +37,21 @@ export function ProductCard({ id, image, title, price, originalPrice, badge, tag
 
   return (
     <Link to={`/product/${id}`}>
-      <Card className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl cursor-pointer">
-      <CardContent className="p-0">
+      <Card 
+        className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+        style={{
+          width: '240px',
+          height: '220px',
+          borderRadius: '16px'
+        }}
+      >
+      <CardContent className="p-0 w-full h-full">
         {/* Image Container */}
-        <div className="relative overflow-hidden bg-accent/50">
+        <div className="relative overflow-hidden bg-accent/50" style={{ width: '100%', height: '140px' }}>
           <ImageWithFallback
             src={image}
             alt={title}
-            className="w-full h-48 sm:h-56 md:h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           
           {/* Badge */}
@@ -86,12 +94,12 @@ export function ProductCard({ id, image, title, price, originalPrice, badge, tag
         </div>
         
         {/* Product Info */}
-        <div className="p-3 sm:p-4 space-y-2">
-          <h3 className="line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] text-sm sm:text-base leading-tight">{title}</h3>
+        <div className="p-3 sm:p-4 space-y-2" style={{ height: '80px' }}>
+          <h3 className="text-sm line-clamp-2 leading-tight">{title}</h3>
           <div className="flex items-center gap-2">
-            <span className="text-primary font-semibold text-sm sm:text-base">{price}</span>
+            <span className="text-primary font-semibold text-sm">{price}</span>
             {originalPrice && (
-              <span className="text-xs sm:text-sm text-muted-foreground line-through">{originalPrice}</span>
+              <span className="text-xs text-muted-foreground line-through">{originalPrice}</span>
             )}
           </div>
         </div>
@@ -100,3 +108,4 @@ export function ProductCard({ id, image, title, price, originalPrice, badge, tag
     </Link>
   );
 }
+

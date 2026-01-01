@@ -1,6 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -45,7 +44,6 @@ export function ProductDetailPage() {
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-3xl mb-4">Product Not Found</h1>
@@ -67,8 +65,6 @@ export function ProductDetailPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
       <main className="flex-1 container mx-auto px-4 py-4 sm:py-6 lg:py-8">
         {/* Back Button */}
         <div className="mb-4">

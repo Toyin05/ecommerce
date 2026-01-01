@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Gift, Sparkles } from "lucide-react";
+import { Sparkles, ChevronDown } from "lucide-react";
 
 export function GiftFinder() {
   const navigate = useNavigate();
@@ -64,18 +64,56 @@ export function GiftFinder() {
   };
 
   return (
-    <div className="bg-secondary py-4 sm:py-6">
-      <div className="container mx-auto px-4">
+    <div 
+      className="bg-secondary"
+      style={{
+        width: '100%',
+        minHeight: '72px',
+        paddingTop: '20px',
+        paddingRight: '60px',
+        paddingBottom: '20px',
+        paddingLeft: '60px',
+        opacity: 1,
+        marginTop: '0px'
+      }}
+    >
+      <div className="container mx-auto flex items-center justify-center gap-4">
         <Dialog open={open} onOpenChange={setOpen}>
-          <div className="flex items-center justify-center gap-2 sm:gap-3 text-white flex-wrap text-center">
-            <Gift className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+          <div className="flex items-center justify-center gap-4 text-white">
             <span className="text-sm sm:text-base lg:text-lg leading-tight">
-              Not sure what to get? 🎁 Let's help you find the perfect gift — tell us about the receiver!
+              Not sure what to get? Let's help you find the perfect gift — tell us about the receiver!
             </span>
             <DialogTrigger asChild>
-              <Button variant="secondary" className="bg-white text-secondary hover:bg-white/90 rounded-full w-full sm:w-auto mt-2 sm:mt-0 h-10 text-sm sm:text-base">
-                Get Started with Shopping Assistant
-              </Button>
+              <div 
+                className="flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  color: '#FF8C42',
+                  borderRadius: '24px',
+                  paddingLeft: '14px',
+                  paddingRight: '14px',
+                  fontSize: '0.8rem',
+                  fontWeight: '600',
+                  border: 'none',
+                  boxShadow: 'none',
+                  width: '280px',
+                  height: '36px',
+                  gap: '4px',
+                  opacity: 1
+                }}
+              >
+                <span 
+                  className="text-white whitespace-nowrap"
+                  style={{
+                    color: '#FF8C42',
+                    fontSize: '0.8rem',
+                    fontWeight: '600'
+                  }}
+                >
+                  Get Started with Shopping Assistant
+                </span>
+                <Sparkles className="h-3 w-3 flex-shrink-0" style={{ color: '#FF8C42' }} />
+              </div>
             </DialogTrigger>
           </div>
           
@@ -181,3 +219,6 @@ export function GiftFinder() {
     </div>
   );
 }
+
+
+

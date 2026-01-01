@@ -27,7 +27,7 @@ export function FeaturedProducts({ title, subtitle, products }: FeaturedProducts
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
           {products.map((product) => {
             const { id, image, title, price, originalPrice, badge, tag } = product;
             return (

@@ -47,25 +47,25 @@ export function HomePage() {
   const recipientCategories = [
     {
       name: "For Him",
-      image: "https://images.unsplash.com/photo-1735197087482-9bda482f6204?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwZ2FkZ2V0cyUyMG1vZGVybnxlbnwxfHx8fDE3NjE2MzUwODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/Landing Page Images/Recipient1.png",
       icon: User,
       description: "Gifts he'll love",
     },
     {
       name: "For Her",
-      image: "https://images.unsplash.com/photo-1605204376600-72ed73f1f9ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxza2luY2FyZSUyMGJlYXV0eSUyMHByb2R1Y3RzfGVufDF8fHx8MTc2MTU1OTg3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/Landing Page Images/Recipient2.png",
       icon: Sparkles,
       description: "Elegant & beautiful",
     },
     {
       name: "For Kids",
-      image: "https://images.unsplash.com/photo-1696527014341-a874bd839540?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxraWRzJTIwdG95cyUyMGNvbG9yZnVsfGVufDF8fHx8MTc2MTY0MDc4OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/Landing Page Images/Recipient3.png",
       icon: PartyPopper,
       description: "Fun & playful",
     },
     {
       name: "Corporate Gifts",
-      image: "https://images.unsplash.com/photo-1636289141131-389e44e981c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB3YXRjaCUyMGFjY2Vzc29yaWVzfGVufDF8fHx8MTc2MTUyOTg2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "/Landing Page Images/Recipient4.png",
       icon: Users,
       description: "Professional & thoughtful",
     },
@@ -226,13 +226,14 @@ export function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen max-w-full overflow-x-hidden">
       <Header />
-      <Hero />
-      <GiftFinder />
+      <div className="w-full max-w-full overflow-x-hidden">
+        <Hero />
+        <GiftFinder />
       
       <CategorySection
-        title="Shop by Celebration 🎊"
+        title="Find the Perfect Gift for Every Occassion"
         subtitle="Find the perfect gift for every special moment"
         categories={celebrationCategories}
         type="occasion"
@@ -245,14 +246,14 @@ export function HomePage() {
       />
 
       <CategorySection
-        title="Shop by Recipient 💝"
+        title="Shop by Recipient"
         subtitle="Gifts curated for everyone on your list"
         categories={recipientCategories}
         type="recipient"
       />
 
       <FeaturedProducts
-        title="Staff Picks 🌟"
+        title="Staff Picks "
         subtitle="Our team's favorite gifts that never disappoint"
         products={trendingProducts}
       />
@@ -264,7 +265,18 @@ export function HomePage() {
       />
 
       {/* CTA Section */}
-      <section className="py-20 bg-secondary text-white relative overflow-hidden">
+      <section 
+        className="text-white relative overflow-hidden"
+        style={{
+          backgroundColor: '#3B82F6',
+          width: '100%',
+          minHeight: '320px',
+          paddingTop: '60px',
+          paddingRight: '60px',
+          paddingBottom: '60px',
+          paddingLeft: '60px'
+        }}
+      >
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl" />
           <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl" />
@@ -275,17 +287,34 @@ export function HomePage() {
             We specialize in personalized gifts and bulk orders. Let us help you create something truly memorable!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-primary rounded-full hover:shadow-xl transition-shadow">
+            <button 
+              className="px-8 py-3 rounded-full cursor-pointer hover:shadow-lg"
+              style={{
+                backgroundColor: '#FF8C42',
+                color: 'white',
+                border: 'none'
+              }}
+            >
               Request Custom Gift
             </button>
-            <button className="px-8 py-3 border-2 border-white text-white rounded-full hover:bg-white hover:text-primary transition-colors">
+            <button 
+              className="px-8 py-3 rounded-full cursor-pointer hover:shadow-lg"
+              style={{
+                backgroundColor: '#FFFFFF',
+                color: '#FF8C42',
+                border: 'none'
+              }}
+            >
               Corporate Gifting
             </button>
           </div>
         </div>
       </section>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
+
+
