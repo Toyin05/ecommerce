@@ -66,7 +66,7 @@ export function Header() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-semibold text-base sm:text-base">Gifted & Co.</span>
-                  <span className="text-xs text-muted-foreground hidden sm:block">Gift easy. Gift smart.</span>
+                  <span className="text-xs text-muted-foreground hidden sm:block">Tag line</span>
                 </div>
               </SheetTitle>
               <SheetDescription className="text-sm">
@@ -415,8 +415,8 @@ export function Header() {
 
         {/* Logo */}
         <Link to="/" className="flex flex-col flex-shrink-0 hover:opacity-80 transition-opacity">
-          <span className="font-semibold text-white text-lg">Product Name</span>
-          <span className="text-white/80 text-sm">Gift easy. Gift smart.</span>
+          <span className="font-semibold text-white text-lg">Treelah</span>
+          <span className="text-white/80 text-sm">Tag line.</span>
         </Link>
 
         {/* Main Navigation - Hidden on mobile */}
@@ -653,7 +653,6 @@ export function Header() {
     </header>
   );
 }
-
 
 
 

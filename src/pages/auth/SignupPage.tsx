@@ -128,7 +128,7 @@ export function SignupPage() {
     }
 
     // Show success message
-    toast.success('Account created successfully! Welcome to Product Name.');
+    toast.success('Account created successfully! Welcome to Treelah.');
     navigate(from, { replace: true });
   };
 
@@ -155,7 +155,7 @@ export function SignupPage() {
             
             {/* Brand Text */}
             <div>
-              <h1 className="text-lg font-semibold text-[#1A1A1A]">Product Name</h1>
+              <h1 className="text-lg font-semibold text-[#1A1A1A]">Treelah</h1>
               <p className="text-sm text-[#6B7280]">Tag line</p>
             </div>
           </div>

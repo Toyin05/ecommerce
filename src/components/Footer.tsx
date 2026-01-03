@@ -10,8 +10,8 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-3 sm:space-y-4">
             <div className="flex flex-col">
-              <span className="font-semibold text-sm sm:text-base text-white">Product Name</span>
-              <span className="text-xs text-gray-400">Gift easy. Gift smart.</span>
+              <span className="font-semibold text-sm sm:text-base text-white">Treelah</span>
+              <span className="text-xs text-gray-400">Tag line.</span>
             </div>
             <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
               Because every gift deserves a little thought. We help you celebrate life's special moments with the perfect presents.
@@ -95,7 +95,7 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-left">
               <p className="text-xs sm:text-sm text-gray-400">
-                @2025 Product Name. All rights reserved.
+                @2025 Treelah. All rights reserved.
               </p>
             </div>
             <div className="flex-1 text-center">
